@@ -23,11 +23,6 @@
             --gray-50: #f9fafb;
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
             --gray-800: #1f2937;
             --gray-900: #111827;
         }
@@ -71,7 +66,7 @@
         }
 
         .login-card p {
-            color: var(--gray-600);
+            color: var(--gray-800);
             font-size: 0.95rem;
             margin-bottom: 2rem;
         }
@@ -85,7 +80,7 @@
             display: block;
             margin-bottom: 0.6rem;
             font-weight: 600;
-            color: var(--gray-700);
+            color: var(--gray-800);
         }
 
         .form-control {
@@ -179,21 +174,9 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 2rem;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
         }
 
         .section {
@@ -201,6 +184,46 @@
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+            transition: width 0.3s ease;
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .case-info {
+            flex: 1;
+        }
+
+        .case-number {
+            font-size: 0.85rem;
+            color: var(--gray-800);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .case-number strong {
+            color: var(--primary);
         }
 
         .section h2 {
@@ -209,28 +232,7 @@
             font-size: 1.4rem;
         }
 
-        .case-selector {
-            margin-bottom: 1.5rem;
-        }
-
-        .case-selector label {
-            display: block;
-            margin-bottom: 0.6rem;
-            font-weight: 600;
-            color: var(--gray-700);
-        }
-
-        .case-selector select {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid var(--gray-200);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            background: white;
-            cursor: pointer;
-        }
-
-        .question-box {
+        .clinical-section {
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
             border: 2px solid var(--primary-light);
             border-radius: 8px;
@@ -238,9 +240,49 @@
             margin-bottom: 1.5rem;
         }
 
-        .question-box h3 {
-            color: var(--primary);
+        .clinical-item {
             margin-bottom: 1rem;
+        }
+
+        .clinical-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .clinical-label {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+
+        .clinical-content {
+            color: var(--gray-800);
+            line-height: 1.7;
+        }
+
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .vital {
+            background: white;
+            padding: 0.8rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .vital-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .vital-label {
+            font-size: 0.8rem;
+            color: var(--gray-800);
+            margin-top: 0.2rem;
         }
 
         .image-container {
@@ -248,7 +290,7 @@
             border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1.5rem;
-            min-height: 400px;
+            min-height: 450px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -265,22 +307,53 @@
 
         .cxr-image {
             max-width: 100%;
-            max-height: 400px;
+            max-height: 450px;
             border-radius: 6px;
             display: block;
             margin: 0 auto;
         }
 
-        .heatmap-overlay {
+        .heatmap-canvas {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 100%;
-            max-height: 400px;
             border-radius: 6px;
-            opacity: 0.65;
             display: none;
+            opacity: 0.65;
+        }
+
+        .image-tools {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .tool-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tool-btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        .tool-btn.active {
+            background: var(--success);
         }
 
         .image-placeholder {
@@ -290,18 +363,32 @@
             font-size: 1.1rem;
         }
 
-        .clinical-note {
-            background: var(--gray-50);
-            border-left: 4px solid var(--secondary);
-            padding: 1rem;
-            border-radius: 6px;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            line-height: 1.8;
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
 
-        .clinical-note strong {
-            color: var(--secondary);
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .question-phase {
+            display: block;
+        }
+
+        .question-phase.hidden {
+            display: none;
+        }
+
+        .answer-phase {
+            display: none;
+        }
+
+        .answer-phase.active {
+            display: block;
         }
 
         .findings-group {
@@ -312,7 +399,7 @@
             display: block;
             margin-bottom: 0.8rem;
             font-weight: 600;
-            color: var(--gray-700);
+            color: var(--gray-800);
         }
 
         .checkbox-item {
@@ -345,7 +432,7 @@
             font-family: inherit;
             font-size: 0.95rem;
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
         }
 
         .btn {
@@ -388,21 +475,23 @@
             margin-top: 1.5rem;
         }
 
-        .feedback-section {
-            display: none !important;
-        }
-
         .ai-findings {
-            background: linear-gradient(135deg, #eff6ff 0%, #e0f2fe 100%);
-            border: 2px solid var(--primary-light);
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid var(--warning);
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .ai-findings.active {
+            display: block;
         }
 
         .ai-findings h3 {
-            color: var(--primary);
+            color: #92400e;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
         }
 
         .finding-item {
@@ -413,129 +502,83 @@
             background: white;
             border-radius: 6px;
             margin-bottom: 0.5rem;
-            border-right: 3px solid var(--primary);
+            border-right: 3px solid var(--warning);
         }
 
         .confidence-bar {
-            width: 80px;
-            height: 6px;
+            width: 100px;
+            height: 8px;
             background: var(--gray-200);
-            border-radius: 3px;
+            border-radius: 4px;
             overflow: hidden;
         }
 
         .confidence-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--secondary), var(--success));
+            background: linear-gradient(90deg, var(--primary), var(--success));
         }
 
         .teaching-note {
-            background: #fef3c7;
-            border: 2px solid var(--warning);
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 2px solid var(--success);
             border-radius: 8px;
             padding: 1.5rem;
             margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .teaching-note.active {
+            display: block;
         }
 
         .teaching-note h4 {
-            color: #92400e;
+            color: #166534;
             margin-bottom: 0.8rem;
+            font-size: 1rem;
         }
 
         .teaching-note p {
-            color: #78350f;
+            color: #166534;
             line-height: 1.8;
             font-size: 0.95rem;
             white-space: pre-wrap;
         }
 
-        .heatmap-btn {
-            margin-bottom: 1.5rem;
-        }
-
-        .stats-panel {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            margin-top: 2rem;
-        }
-
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
 
         .stat-item {
             text-align: center;
-            padding: 1.5rem;
+            padding: 1rem;
             background: var(--gray-50);
             border-radius: 8px;
         }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
         }
 
         .stat-label {
-            font-size: 0.85rem;
-            color: var(--gray-600);
-            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--gray-800);
+            margin-top: 0.3rem;
         }
 
-        .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .alert-info {
-            background: #eff6ff;
-            border: 2px solid var(--primary-light);
-            color: var(--primary);
-        }
-
-        .alert-success {
-            background: #f0fdf4;
-            border: 2px solid var(--success);
-            color: #166534;
+        .summary-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
 
         .hidden {
-            display: none;
-        }
-
-        .progress-indicator {
-            display: flex;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-            justify-content: center;
-        }
-
-        .progress-step {
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            background: var(--gray-200);
-            color: var(--gray-700);
-        }
-
-        .progress-step.active {
-            background: var(--primary);
-            color: white;
-        }
-
-        .progress-step.completed {
-            background: var(--success);
-            color: white;
+            display: none !important;
         }
     </style>
 </head>
@@ -577,46 +620,61 @@
 
         <!-- Content -->
         <div class="container">
-            <!-- Progress Indicator -->
-            <div class="progress-indicator" id="progressIndicator">
-                <div class="progress-step active">1. سوال</div>
-                <div class="progress-step" id="step2">2. پاسخ</div>
-                <div class="progress-step" id="step3">3. بازخورد</div>
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
             </div>
 
-            <div class="main-content">
+            <div class="main-grid">
                 <!-- Left Column: Question & Image -->
                 <div>
-                    <!-- Case Selector -->
-                    <div class="section">
-                        <div class="case-selector">
-                            <label>انتخاب مورد:</label>
-                            <select id="caseSelect" onchange="loadCase()">
-                                <option value="">-- یک مورد را انتخاب کنید --</option>
-                                <option value="normal">✅ مورد 1: Normal (طبیعی)</option>
-                                <option value="pneumonia">🔴 مورد 2: Pneumonia (ذات‌الریه)</option>
-                                <option value="pneumothorax">🔴 مورد 3: Pneumothorax (پنوموتوراکس)</option>
-                                <option value="pleural-effusion">🔴 مورد 4: Pleural Effusion (افیوژن)</option>
-                                <option value="cardiomegaly">🔴 مورد 5: Cardiomegaly (بزرگی قلب)</option>
-                            </select>
+                    <!-- Question Phase -->
+                    <div class="section question-phase" id="questionPhase">
+                        <div class="case-header">
+                            <div class="case-info">
+                                <div class="case-number">مورد <strong id="caseNumber">1</strong> از 5</div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Question Section -->
-                    <div class="section" id="questionSection" style="display: none;">
-                        <h2>📋 سوال</h2>
-                        
-                        <div class="question-box">
-                            <h3 id="questionTitle"></h3>
-                            <div id="clinicalPresentation" class="clinical-note"></div>
+                        <h2 id="caseTitle"></h2>
+
+                        <!-- Clinical Presentation -->
+                        <div class="clinical-section">
+                            <div class="clinical-item">
+                                <div class="clinical-label">🔴 شکایت اصلی:</div>
+                                <div class="clinical-content" id="chiefComplaint"></div>
+                            </div>
+
+                            <div class="clinical-item">
+                                <div class="clinical-label">📝 تاریخ بیماری حاضر:</div>
+                                <div class="clinical-content" id="hpi"></div>
+                            </div>
+
+                            <div class="clinical-item">
+                                <div class="clinical-label">📊 علائم حیاتی:</div>
+                                <div class="vitals-grid" id="vitals"></div>
+                            </div>
+
+                            <div class="clinical-item">
+                                <div class="clinical-label">🩺 معایده فیزیکی:</div>
+                                <div class="clinical-content" id="pe"></div>
+                            </div>
                         </div>
 
                         <!-- Image -->
                         <div class="image-container">
                             <div class="image-wrapper">
                                 <img id="cxrImage" class="cxr-image" src="" alt="CXR" style="display: none;">
-                                <img id="heatmapOverlay" class="heatmap-overlay" src="" alt="Heatmap">
+                                <canvas id="heatmapCanvas" class="heatmap-canvas"></canvas>
                                 <div id="imagePlaceholder" class="image-placeholder">📸 بارگذاری تصویر...</div>
+                            </div>
+                            <div class="image-tools">
+                                <button class="tool-btn" onclick="toggleHeatmap()" id="heatmapBtn" style="display: none;">
+                                    🔥 نقشه توضیح‌پذیر
+                                </button>
+                                <button class="tool-btn" onclick="nextCase()" id="nextBtn" style="display: none;">
+                                    → مورد بعدی
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -624,9 +682,9 @@
 
                 <!-- Right Column: Answer & Feedback -->
                 <div>
-                    <!-- Answer Section -->
-                    <div class="section" id="answerSection" style="display: none;">
-                        <h2>✏️ پاسخ شما</h2>
+                    <!-- Answer Phase -->
+                    <div class="section answer-phase" id="answerPhase">
+                        <h2>✍️ پاسخ شما</h2>
 
                         <div class="findings-group">
                             <label>یافته‌های شناخت‌شده:</label>
@@ -644,52 +702,47 @@
                         </div>
                     </div>
 
-                    <!-- Feedback Section -->
-                    <div class="section feedback-section" id="feedbackSection">
+                    <!-- Feedback Phase -->
+                    <div class="section" id="feedbackPhase" style="display: none;">
                         <h2>💡 بازخورد و یادگیری</h2>
 
-                        <!-- Heatmap Toggle -->
-                        <div class="heatmap-btn">
-                            <button class="btn btn-secondary btn-full" onclick="toggleHeatmap()" id="toggleBtn" style="display: none;">
-                                🔥 نقشه توضیح‌پذیر (Grad-CAM)
-                            </button>
-                        </div>
-
                         <!-- AI Findings -->
-                        <div class="ai-findings" id="aiPanel" style="display: none;">
+                        <div class="ai-findings" id="aiPanel">
                             <h3>🤖 تحلیل هوش مصنوعی</h3>
                             <div id="aiFindings"></div>
                         </div>
 
                         <!-- Teaching Notes -->
-                        <div class="teaching-note" id="teachingNote" style="display: none;">
+                        <div class="teaching-note" id="teachingNote">
                             <h4>📚 نکات تعلیمی</h4>
                             <p id="teachingNoteText"></p>
                         </div>
 
                         <!-- Accuracy -->
-                        <div class="stats-grid" style="margin-top: 1rem;">
-                            <div class="stat-item">
-                                <div class="stat-value" id="accuracyScore">-</div>
-                                <div class="stat-label">دقت (%)</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value" id="timeSpent">-</div>
-                                <div class="stat-label">زمان (ثانیه)</div>
+                        <div style="background: var(--gray-50); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-value" id="accuracyScore">-</div>
+                                    <div class="stat-label">دقت (%)</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value" id="timeSpent">-</div>
+                                    <div class="stat-label">زمان (ثانیه)</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="btn-group" style="margin-top: 1.5rem;">
-                            <button class="btn btn-primary btn-full" onclick="nextCase()">→ مورد بعدی</button>
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-full" onclick="continueToNext()">→ مورد بعدی</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Overall Stats -->
-            <div class="stats-panel">
+            <!-- Summary (appears at the end) -->
+            <div class="summary-panel hidden" id="summaryPanel" style="margin-top: 2rem;">
                 <h2>📊 خلاصه عملکرد</h2>
-                <div class="stats-grid">
+                <div class="stats-grid" style="margin-top: 1rem;">
                     <div class="stat-item">
                         <div class="stat-value" id="totalCases">0</div>
                         <div class="stat-label">موارد انجام‌شده</div>
@@ -702,103 +755,115 @@
                         <div class="stat-value" id="totalTime">-</div>
                         <div class="stat-label">زمان کل</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value" id="progress">0%</div>
-                        <div class="stat-label">پیشرفت</div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Credentials (hidden in code)
+        // Credentials (hidden)
         const VALID_USERNAME = 'pilot2025';
         const VALID_PASSWORD = 'pilot2025';
 
-        // Case Data with real Wikimedia Commons URLs
-        const casesData = {
+        // Clinical Data
+        const clinicalData = {
             normal: {
                 title: 'مورد بالینی: قفسه سینه طبیعی',
-                clinical: '<strong>شرح حال:</strong> بیمار 25 ساله بدون عالئم تنفسی. معایده فیزیکی طبیعی.',
+                chief_complaint: 'بررسی دوره‌ای سلامتی',
+                hpi: 'بیمار 25 ساله زن، بدون شکایت تنفسی یا قفسه‌سینه‌ای حاضر می‌شود. بیمار گزارش می‌دهد که سلامت عمومی خوب است.',
+                vitals: [
+                    { label: 'دما', value: '36.5°C' },
+                    { label: 'ضربان', value: '72 bpm' },
+                    { label: 'تنفس', value: '16/min' },
+                    { label: 'فشار', value: '120/80' },
+                    { label: 'O2 Sat', value: '98%' }
+                ],
+                pe: 'معایه فیزیکی: انتانه‌های ریه‌ای طبیعی، دل منظم و بدون ضجه، شکم نرم',
                 image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Normal_posteroanterior_%28PA%29_chest_radiograph_%28X-ray%29.jpg/512px-Normal_posteroanterior_%28PA%29_chest_radiograph_%28X-ray%29.jpg',
-                trueFindings: [],
-                aiFindings: {
-                    normal: 0.98,
-                    pneumonia: 0.01,
-                    cardiomegaly: 0.01,
-                    pleural_effusion: 0.00,
-                    pneumothorax: 0.00
-                },
-                teaching: 'در رادیوگرافی قفسه سینه طبیعی:\n• هر دو ریه شفاف و بدون تجمع\n• قلب در اندازه و موقعیت طبیعی\n• دیافراگم درست\n• فضاهای هوایی دست‌نخورده'
+                trueFindings: ['normal'],
+                aiFindings: { normal: 0.98, pneumonia: 0.01, cardiomegaly: 0.01 },
+                teaching: '✓ ریه‌های طبیعی: شفاف و بدون تجمع\n✓ قلب: اندازه و موقعیت طبیعی\n✓ دیافراگم: درست\n✓ فضاهای هوایی: دست‌نخورده\n✓ استخوان‌ها: بدون آسیب'
             },
             pneumonia: {
                 title: 'مورد بالینی: التهاب ریه',
-                clinical: '<strong>شرح حال:</strong> بیمار 40 ساله با تب، سرفه و دیسپنه. عالئم تنفسی حاد. درجه حرارت 38.5°C.',
+                chief_complaint: 'تب، سرفه، و تنگی نفس',
+                hpi: 'بیمار 40 ساله مرد با تاریخ تب 3 روزه (38.5°C)، سرفه پروتینی‌زا، و دیسپنه تدریجی حاضر می‌شود. بیمار اخیراً با فرد مبتلا به عفونت تنفسی تماس داشته است.',
+                vitals: [
+                    { label: 'دما', value: '38.5°C' },
+                    { label: 'ضربان', value: '105 bpm' },
+                    { label: 'تنفس', value: '24/min' },
+                    { label: 'فشار', value: '130/85' },
+                    { label: 'O2 Sat', value: '92%' }
+                ],
+                pe: 'انتانه‌های ریوی: خش ریوی در قسمت فوقانی ریه راست، تاکی‌پنه، تاکی‌کاردی',
                 image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Pneumonia_x_ray.jpg/512px-Pneumonia_x_ray.jpg',
                 trueFindings: ['pneumonia'],
-                aiFindings: {
-                    pneumonia: 0.92,
-                    normal: 0.05,
-                    cardiomegaly: 0.02,
-                    pleural_effusion: 0.01,
-                    pneumothorax: 0.00
-                },
-                teaching: 'عالئم ذات‌الریه در رادیوگرافی:\n• تیرگی/opacity در یک یا دو ریه\n• Air bronchogram (خطوط هوایی در تیرگی)\n• توزیع می‌تواند یک لوب، بخش یا پخش باشد\n• ممکن است با pleural effusion همراه باشد'
+                aiFindings: { pneumonia: 0.92, normal: 0.05, cardiomegaly: 0.02 },
+                teaching: '⚠️ تیرگی opacity در لوب فوقانی راست\n⚠️ Air bronchogram: خطوط هوایی درون تیرگی\n⚠️ توزیع ممکن است یک لوب یا چند بخش\n⚠️ ممکن است با pleural effusion همراه باشد\n⚠️ تب بالا + تاکی‌پنه = ذات‌الریه تحتمی'
             },
             pneumothorax: {
                 title: 'مورد بالینی: ریه فروپاشی',
-                clinical: '<strong>شرح حال:</strong> بیمار 28 ساله با درد ناگهانی قفسه سینه و تنگی نفس. انتانه کم‌صدایی در یک طرف.',
+                chief_complaint: 'درد حاد قفسه سینه و تنگی نفس',
+                hpi: 'بیمار 28 ساله مرد با درد ناگهانی قفسه سینه و تنگی نفس شدید حاضر می‌شود. درد با تنفس عمیق بدتر می‌شود. بیمار قبلاً این مشکل را نداشت.',
+                vitals: [
+                    { label: 'دما', value: '37.2°C' },
+                    { label: 'ضربان', value: '110 bpm' },
+                    { label: 'تنفس', value: '26/min' },
+                    { label: 'فشار', value: '128/82' },
+                    { label: 'O2 Sat', value: '94%' }
+                ],
+                pe: 'انتانه ریوی: کاهش شنوایی صوتی در طرف راست، تاکی‌پنه، بی‌قراری',
                 image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pneumothorax_CXR.jpg/512px-Pneumothorax_CXR.jpg',
                 trueFindings: ['pneumothorax'],
-                aiFindings: {
-                    pneumothorax: 0.95,
-                    normal: 0.02,
-                    cardiomegaly: 0.01,
-                    pleural_effusion: 0.01,
-                    pneumonia: 0.01
-                },
-                teaching: 'عالئم پنوموتوراکس:\n• خط سفید منزوی‌شده (pleural line) در لبه ریه\n• ریه فروپاشی با فاصله از دیواره قفسه سینه\n• عدم رسم معمول وعائی در ناحیه فروپاشی\n• درد حاد ناگهانی، تنگی نفس، تاکی‌کاردی'
+                aiFindings: { pneumothorax: 0.95, normal: 0.02, cardiomegaly: 0.01 },
+                teaching: '⚠️ خط pleural منزوی‌شده: خط سفید در لبه ریه\n⚠️ ریه فروپاشی: بدون وعائی در بخش بالایی\n⚠️ فاصله از دیواره قفسه سینه\n⚠️ ممکن است tracheal deviation باشد (طوارئ)\n⚠️ درد ناگهانی + تنگی نفس = پنوموتوراکس تحتمی'
             },
             'pleural-effusion': {
                 title: 'مورد بالینی: جمع‌آوری سیال کنار ریه',
-                clinical: '<strong>شرح حال:</strong> بیمار 55 ساله با تنگی نفس تدریجی. سابقه نارسایی قلب. نقص صوت در یک طرف.',
+                chief_complaint: 'تنگی نفس تدریجی',
+                hpi: 'بیمار 55 ساله زن با تاریخ نارسایی قلب، با تنگی نفس تدریجی 2 هفته‌ای حاضر می‌شود. بیمار مدت‌های اخیر پاهای متورم و خستگی را نیز گزارش می‌دهد.',
+                vitals: [
+                    { label: 'دما', value: '37.0°C' },
+                    { label: 'ضربان', value: '98 bpm' },
+                    { label: 'تنفس', value: '22/min' },
+                    { label: 'فشار', value: '140/90' },
+                    { label: 'O2 Sat', value: '93%' }
+                ],
+                pe: 'انتانه ریوی: کاهش شنوایی صوتی در پایین طرف راست، بی‌صدایی پرکاشن، وذمة دو طرفه',
                 image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Pleural_effusion.jpg/512px-Pleural_effusion.jpg',
                 trueFindings: ['pleural_effusion'],
-                aiFindings: {
-                    pleural_effusion: 0.93,
-                    normal: 0.04,
-                    cardiomegaly: 0.02,
-                    pneumonia: 0.01,
-                    pneumothorax: 0.00
-                },
-                teaching: 'عالئم افیوژن پلورال:\n• محو شدن زاویه costophrenic (blunting)\n• سایه سیالی با حد مات\n• Meniscus shape (شکل منیسکی)\n• اگر حجم زیاد باشد، می‌تواند ریه را فشار دهد'
+                aiFindings: { pleural_effusion: 0.93, normal: 0.04, cardiomegaly: 0.02 },
+                teaching: '⚠️ محو شدن زاویه costophrenic (blunting)\n⚠️ سایه سیالی با حد مات\n⚠️ Meniscus shape: شکل منحنی\n⚠️ اگر حجم زیاد باشد، ریه فشرده می‌شود\n⚠️ عل: نارسایی قلب، عفونت، سرطان'
             },
             cardiomegaly: {
                 title: 'مورد بالینی: بزرگی قلب',
-                clinical: '<strong>شرح حال:</strong> بیمار 60 ساله با خستگی و تنگی نفس. اختلال ضربان قلب. فشار خون بالا.',
+                chief_complaint: 'خستگی و تنگی نفس',
+                hpi: 'بیمار 60 ساله مرد با تاریخ فشار خون بالا، با خستگی و تنگی نفس تدریجی حاضر می‌شود. بیمار اخیراً با کمترین فعالیت دچار خستگی می‌شود.',
+                vitals: [
+                    { label: 'دما', value: '37.1°C' },
+                    { label: 'ضربان', value: '92 bpm' },
+                    { label: 'تنفس', value: '20/min' },
+                    { label: 'فشار', value: '155/95' },
+                    { label: 'O2 Sat', value: '95%' }
+                ],
+                pe: 'صوتیات قلب: ضجه سیستولی، نبض ضعیف، جگر متورم، وذمة دوطرفه',
                 image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Cardiomegally.PNG/512px-Cardiomegally.PNG',
                 trueFindings: ['cardiomegaly'],
-                aiFindings: {
-                    cardiomegaly: 0.94,
-                    normal: 0.03,
-                    pleural_effusion: 0.02,
-                    pneumonia: 0.01,
-                    pneumothorax: 0.00
-                },
-                teaching: 'عالئم بزرگی قلب:\n• نسبت cardiothoracic ratio (CTR) > 0.5\n• قلب بزرگ‌شده و گرد شده\n• تغییر شکل Silhouette\n• عل: نارسایی قلبی، فشار خون بالا، بیماری دریچه‌ای'
+                aiFindings: { cardiomegaly: 0.94, normal: 0.03, pleural_effusion: 0.02 },
+                teaching: '⚠️ نسبت cardiothoracic ratio (CTR) > 0.5\n⚠️ قلب بزرگ و گرد شده\n⚠️ تغییر Silhouette\n⚠️ عل: نارسایی قلب، فشار خون بالا\n⚠️ ممکن است با Pulmonary edema همراه باشد'
             }
         };
 
         const findings = [
-            { id: 'pneumonia', label: 'ذات‌الریه (Pneumonia)' },
-            { id: 'pneumothorax', label: 'پنوموتوراکس (Pneumothorax)' },
-            { id: 'pleural_effusion', label: 'افیوژن (Pleural Effusion)' },
+            { id: 'pneumonia', label: 'التهاب ریه (Pneumonia)' },
+            { id: 'pneumothorax', label: 'ریه فروپاشی (Pneumothorax)' },
+            { id: 'pleural_effusion', label: 'جمع‌آوری سیال (Pleural Effusion)' },
             { id: 'cardiomegaly', label: 'بزرگی قلب (Cardiomegaly)' },
             { id: 'normal', label: 'طبیعی (Normal)' }
         ];
 
-        let currentCase = null;
+        let currentCaseIndex = 0;
+        const caseOrder = ['normal', 'pneumonia', 'pneumothorax', 'pleural-effusion', 'cardiomegaly'];
         let userResponses = [];
         let startTime = null;
         let showingHeatmap = false;
@@ -813,7 +878,7 @@
             if (username === VALID_USERNAME && password === VALID_PASSWORD) {
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('appWrapper').style.display = 'block';
-                initializeFindingsCheckboxes();
+                initializeApp();
             } else {
                 errorMsg.style.display = 'block';
                 errorMsg.textContent = '❌ نام کاربری یا رمز عبور اشتباه است';
@@ -828,7 +893,12 @@
             }
         }
 
-        // Initialize findings
+        // Initialize
+        function initializeApp() {
+            initializeFindingsCheckboxes();
+            loadCase();
+        }
+
         function initializeFindingsCheckboxes() {
             const container = document.getElementById('findingsCheckboxes');
             container.innerHTML = '';
@@ -844,51 +914,63 @@
 
         // Load case
         function loadCase() {
-            const caseId = document.getElementById('caseSelect').value;
-            if (!caseId) {
-                document.getElementById('questionSection').style.display = 'none';
-                document.getElementById('answerSection').style.display = 'none';
-                document.getElementById('feedbackSection').classList.add('feedback-section');
+            if (currentCaseIndex >= caseOrder.length) {
+                showSummary();
                 return;
             }
 
-            currentCase = caseId;
+            const caseId = caseOrder[currentCaseIndex];
+            const caseData = clinicalData[caseId];
+
             startTime = Date.now();
-            const caseData = casesData[caseId];
 
-            // Load question
-            document.getElementById('questionTitle').textContent = caseData.title;
-            document.getElementById('clinicalPresentation').innerHTML = caseData.clinical;
+            // Update UI
+            document.getElementById('caseNumber').textContent = currentCaseIndex + 1;
+            document.getElementById('caseTitle').textContent = caseData.title;
+            document.getElementById('chiefComplaint').textContent = caseData.chief_complaint;
+            document.getElementById('hpi').textContent = caseData.hpi;
+            document.getElementById('pe').textContent = caseData.pe;
 
-            // Load image with CORS handling
+            // Vitals
+            const vitalsHtml = caseData.vitals.map(v => `
+                <div class="vital">
+                    <div class="vital-value">${v.value}</div>
+                    <div class="vital-label">${v.label}</div>
+                </div>
+            `).join('');
+            document.getElementById('vitals').innerHTML = vitalsHtml;
+
+            // Image
             const img = document.getElementById('cxrImage');
-            img.crossOrigin = 'anonymous';
             img.src = caseData.image;
-            img.onerror = function() {
+            img.onerror = () => {
                 document.getElementById('imagePlaceholder').innerHTML = '⚠️ خطا در بارگذاری تصویر';
             };
             img.onload = () => {
                 document.getElementById('imagePlaceholder').style.display = 'none';
                 img.style.display = 'block';
+                document.getElementById('heatmapBtn').style.display = 'inline-block';
             };
 
-            // Show sections
-            document.getElementById('questionSection').style.display = 'block';
-            document.getElementById('answerSection').style.display = 'block';
-            document.getElementById('feedbackSection').classList.add('feedback-section');
-            document.getElementById('toggleBtn').style.display = 'none';
-            document.getElementById('aiPanel').style.display = 'none';
+            // Show question phase
+            document.getElementById('questionPhase').classList.remove('hidden');
+            document.getElementById('answerPhase').classList.remove('active');
+            document.getElementById('feedbackPhase').style.display = 'none';
+            document.getElementById('heatmapBtn').innerHTML = '🔥 نقشه توضیح‌پذیر';
+            document.getElementById('nextBtn').style.display = 'none';
+            showingHeatmap = false;
 
-            // Reset answer
+            // Reset
             resetAnswer();
             updateProgress();
         }
 
         // Submit answer
         function submitAnswer() {
-            if (!currentCase) return;
+            if (currentCaseIndex >= caseOrder.length) return;
 
-            const caseData = casesData[currentCase];
+            const caseId = caseOrder[currentCaseIndex];
+            const caseData = clinicalData[caseId];
             const selectedFindings = Array.from(document.querySelectorAll('input[name="findings"]:checked')).map(el => el.value);
             const interpretation = document.getElementById('interpretationText').value;
             const timeSpent = Math.round((Date.now() - startTime) / 1000);
@@ -902,18 +984,17 @@
             if (caseData.trueFindings.length === 0) {
                 accuracy = falsePositives === 0 ? 100 : 50;
             } else {
-                accuracy = Math.round((correct / (correct + missed + falsePositives)) * 100);
+                const total = Math.max(caseData.trueFindings.length, selectedFindings.length);
+                accuracy = Math.round((correct / total) * 100);
             }
             accuracy = Math.max(0, Math.min(100, accuracy));
 
-            // Store response
             userResponses.push({
-                caseId: currentCase,
+                caseId,
                 findings: selectedFindings,
                 interpretation,
                 time: timeSpent,
-                accuracy,
-                timestamp: new Date().toISOString()
+                accuracy
             });
 
             // Show feedback
@@ -922,12 +1003,14 @@
 
         // Show feedback
         function showFeedback(caseData, accuracy, timeSpent) {
-            // Show heatmap toggle
-            document.getElementById('toggleBtn').style.display = 'block';
+            // Hide answer phase
+            document.getElementById('answerPhase').classList.remove('active');
+            document.getElementById('feedbackPhase').style.display = 'block';
+            document.getElementById('nextBtn').style.display = 'inline-block';
 
             // Show AI findings
             const aiPanel = document.getElementById('aiPanel');
-            aiPanel.style.display = 'block';
+            aiPanel.classList.add('active');
             const aiFindings = document.getElementById('aiFindings');
             aiFindings.innerHTML = '';
             Object.entries(caseData.aiFindings).forEach(([finding, confidence]) => {
@@ -948,83 +1031,90 @@
             });
 
             // Show teaching notes
+            const teachingNote = document.getElementById('teachingNote');
+            teachingNote.classList.add('active');
             document.getElementById('teachingNoteText').textContent = caseData.teaching;
-            document.getElementById('teachingNote').style.display = 'block';
 
-            // Show stats
+            // Show accuracy
             document.getElementById('accuracyScore').textContent = accuracy + '%';
             document.getElementById('timeSpent').textContent = timeSpent;
-
-            // Show feedback section
-            document.getElementById('feedbackSection').classList.remove('feedback-section');
-            document.getElementById('answerSection').style.display = 'none';
-
-            // Update overall stats
-            updateOverallStats();
-            updateProgress();
         }
 
         // Toggle heatmap
         function toggleHeatmap() {
-            const overlay = document.getElementById('heatmapOverlay');
             showingHeatmap = !showingHeatmap;
+            const canvas = document.getElementById('heatmapCanvas');
+            const img = document.getElementById('cxrImage');
             
             if (showingHeatmap) {
-                const caseId = currentCase;
-                // Simple heatmap simulation with canvas gradient
-                const img = document.getElementById('cxrImage');
-                if (img.src) {
-                    overlay.src = img.src; // In real implementation, load actual heatmap
-                    overlay.style.display = 'block';
-                }
+                // Create simple heatmap overlay
+                canvas.width = img.width || 400;
+                canvas.height = img.height || 400;
+                const ctx = canvas.getContext('2d');
+                
+                // Draw gradient heatmap (simplified)
+                const gradient = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width);
+                gradient.addColorStop(0, 'rgba(255, 0, 0, 0.5)');
+                gradient.addColorStop(0.5, 'rgba(255, 165, 0, 0.3)');
+                gradient.addColorStop(1, 'rgba(0, 0, 255, 0.1)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                canvas.style.display = 'block';
+                document.getElementById('heatmapBtn').innerHTML = '✕ بستن نقشه';
+                document.getElementById('heatmapBtn').classList.add('active');
             } else {
-                overlay.style.display = 'none';
+                canvas.style.display = 'none';
+                document.getElementById('heatmapBtn').innerHTML = '🔥 نقشه توضیح‌پذیر';
+                document.getElementById('heatmapBtn').classList.remove('active');
             }
-            
-            document.getElementById('toggleBtn').textContent = showingHeatmap ? '⊗ پنهان کردن' : '🔥 نقشه توضیح‌پذیر';
         }
 
         // Reset answer
         function resetAnswer() {
             document.querySelectorAll('input[name="findings"]').forEach(el => el.checked = false);
             document.getElementById('interpretationText').value = '';
-            document.getElementById('heatmapOverlay').style.display = 'none';
+            document.getElementById('heatmapCanvas').style.display = 'none';
             showingHeatmap = false;
         }
 
-        // Next case
-        function nextCase() {
-            document.getElementById('caseSelect').value = '';
-            document.getElementById('questionSection').style.display = 'none';
-            document.getElementById('answerSection').style.display = 'none';
-            document.getElementById('feedbackSection').classList.add('feedback-section');
-            resetAnswer();
+        // Continue to next case
+        function continueToNext() {
+            document.getElementById('feedbackPhase').style.display = 'none';
+            document.getElementById('aiPanel').classList.remove('active');
+            document.getElementById('teachingNote').classList.remove('active');
+            document.getElementById('answerPhase').classList.add('active');
+            
+            currentCaseIndex++;
+            loadCase();
         }
 
-        // Update stats
-        function updateOverallStats() {
+        // Next case button (during question phase)
+        function nextCase() {
+            // This button appears after feedback
+            // It's handled by the continue button in feedback phase
+        }
+
+        // Show summary
+        function showSummary() {
+            document.getElementById('questionPhase').classList.add('hidden');
+            document.getElementById('answerPhase').classList.remove('active');
+            document.getElementById('feedbackPhase').style.display = 'none';
+            document.getElementById('summaryPanel').classList.remove('hidden');
+
             const total = userResponses.length;
             const avg = total > 0 ? Math.round(userResponses.reduce((sum, r) => sum + r.accuracy, 0) / total) : 0;
             const time = Math.round(userResponses.reduce((sum, r) => sum + r.time, 0) / 60);
-            const progress = Math.round((total / 5) * 100);
 
             document.getElementById('totalCases').textContent = total;
             document.getElementById('avgAccuracy').textContent = avg + '%';
-            document.getElementById('totalTime').textContent = time + ' د';
-            document.getElementById('progress').textContent = progress + '%';
+            document.getElementById('totalTime').textContent = time + ' دقیقه';
         }
 
-        // Update progress indicator
+        // Update progress
         function updateProgress() {
-            const step2 = document.getElementById('step2');
-            const step3 = document.getElementById('step3');
-            if (document.getElementById('answerSection').style.display !== 'none') {
-                step2.classList.add('active');
-            }
-            if (document.getElementById('feedbackSection').style.display !== 'none' && !document.getElementById('feedbackSection').classList.contains('feedback-section')) {
-                step3.classList.add('active');
-                step2.classList.remove('active');
-            }
+            const progress = ((currentCaseIndex + 1) / caseOrder.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
         }
     </script>
 </body>
