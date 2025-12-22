@@ -48,10 +48,10 @@
         .vital-value { font-weight: 700; color: var(--primary); font-size: 1.2rem; }
         .vital-label { font-size: 0.8rem; color: var(--gray-800); }
         .image-viewer { background: #1f2937; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; }
-        .image-container { position: relative; display: flex; align-items: center; justify-content: center; min-height: 500px; background: #1f2937; border-radius: 8px; }
+        .image-container { position: relative; display: flex; align-items: center; justify-content: center; min-height: 500px; background: #1f2937; border-radius: 8px; overflow: hidden; }
         .image-wrapper { position: relative; display: inline-block; max-width: 100%; }
-        .cxr-image { max-width: 100%; max-height: 500px; border-radius: 6px; display: block; filter: brightness(1); }
-        .heatmap-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 100%; max-height: 500px; border-radius: 6px; display: none; pointer-events: none; }
+        .cxr-image { max-width: 100%; max-height: 500px; border-radius: 6px; display: block; filter: brightness(1); transition: transform 0.3s ease; }
+        .heatmap-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 6px; display: none; pointer-events: none; }
         .image-tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
         .tool-btn { background: linear-gradient(135deg, #00a8e8 0%, var(--primary) 100%); color: white; border: none; padding: 0.8rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
         .tool-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3); }
@@ -105,7 +105,7 @@
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label>نام کاربری</label>
-                    <input type="text" id="username" class="form-control" placeholder="pilot2025" required>
+                    <input type="text" id="username" class="form-control" placeholder="" required>
                 </div>
                 <div class="form-group">
                     <label>رمز عبور</label>
@@ -249,36 +249,36 @@
 
     <script>
         const users = {
-            'pilot2025': { password: 'pilot2025', platform: '📚 پلتفرم اصلی', cases: 5 }
+            'pilot2025': { password: 'pilot2025' }
         };
 
         const optionsPerCase = {
             normal: { correct: 'normal', options: [
-                {id: 'normal', label: '✅ قفسه سینه طبیعی'},
+                {id: 'normal', label: 'قفسه سینه طبیعی'},
                 {id: 'pneumonia', label: 'التهاب ریه'},
                 {id: 'asthma', label: 'آسم'},
                 {id: 'atelectasis', label: 'ریه فروپاشی'}
             ]},
             pneumonia: { correct: 'pneumonia', options: [
-                {id: 'pneumonia', label: '✅ التهاب ریه'},
+                {id: 'pneumonia', label: 'التهاب ریه'},
                 {id: 'normal', label: 'قفسه طبیعی'},
                 {id: 'tb', label: 'سل'},
                 {id: 'carcinoma', label: 'سرطان'}
             ]},
             pneumothorax: { correct: 'pneumothorax', options: [
-                {id: 'pneumothorax', label: '✅ ریه فروپاشی'},
+                {id: 'pneumothorax', label: 'ریه فروپاشی'},
                 {id: 'pleural_effusion', label: 'جمع سیال'},
                 {id: 'normal', label: 'طبیعی'},
                 {id: 'hemothorax', label: 'خون'}
             ]},
             'pleural-effusion': { correct: 'pleural_effusion', options: [
-                {id: 'pleural_effusion', label: '✅ جمع سیال'},
+                {id: 'pleural_effusion', label: 'جمع سیال'},
                 {id: 'pneumothorax', label: 'ریه فروپاشی'},
                 {id: 'hernia', label: 'فتق'},
                 {id: 'collapse', label: 'فروپاشی'}
             ]},
             cardiomegaly: { correct: 'cardiomegaly', options: [
-                {id: 'cardiomegaly', label: '✅ بزرگی قلب'},
+                {id: 'cardiomegaly', label: 'بزرگی قلب'},
                 {id: 'pericardial', label: 'جمع پریکاردیال'},
                 {id: 'normal', label: 'طبیعی'},
                 {id: 'mediastinal', label: 'تودگی'}
@@ -346,7 +346,7 @@
             const u = document.getElementById('username').value, p = document.getElementById('password').value, err = document.getElementById('errorMessage');
             if (users[u] && users[u].password === p) {
                 currentUser = u;
-                maxCases = users[u].cases;
+                maxCases = 5;
                 document.getElementById('totalCases').textContent = maxCases;
                 document.getElementById('loginPage').style.display = 'none';
                 document.getElementById('appWrapper').style.display = 'block';
@@ -420,14 +420,16 @@
             const canvas = document.getElementById('heatmapCanvas'), img = document.getElementById('cxrImage'), opacityControl = document.getElementById('opacityControl');
             if (showingHeatmap) {
                 opacityControl.style.display = 'block';
-                canvas.width = img.offsetWidth || 400; canvas.height = img.offsetHeight || 400;
-                const ctx = canvas.getContext('2d'), grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width);
+                canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+                const ctx = canvas.getContext('2d'), grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, Math.max(canvas.width, canvas.height)/2);
                 grad.addColorStop(0, 'rgba(255, 0, 0, 0.6)');
                 grad.addColorStop(0.4, 'rgba(255, 165, 0, 0.4)');
                 grad.addColorStop(0.7, 'rgba(0, 255, 255, 0.2)');
                 grad.addColorStop(1, 'rgba(0, 0, 255, 0.1)');
                 ctx.fillStyle = grad; ctx.fillRect(0, 0, canvas.width, canvas.height);
                 canvas.style.display = 'block';
+                canvas.style.width = img.offsetWidth + 'px';
+                canvas.style.height = img.offsetHeight + 'px';
                 document.getElementById('heatmapBtn').classList.add('active');
             } else {
                 opacityControl.style.display = 'none';
