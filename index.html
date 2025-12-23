@@ -51,6 +51,7 @@
         .image-container { position: relative; display: flex; align-items: center; justify-content: center; min-height: 500px; background: #1f2937; border-radius: 8px; overflow: hidden; }
         .image-wrapper { position: relative; display: inline-block; max-width: 100%; }
         .cxr-image { max-width: 100%; max-height: 500px; border-radius: 6px; display: block; filter: brightness(1); transition: transform 0.3s ease; }
+        .image-placeholder { color: white; text-align: center; padding: 2rem; }
         .heatmap-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 6px; display: none; pointer-events: none; }
         .image-tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.8rem; margin-bottom: 1.5rem; }
         .tool-btn { background: linear-gradient(135deg, #00a8e8 0%, var(--primary) 100%); color: white; border: none; padding: 0.8rem 1rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
@@ -173,9 +174,13 @@
                                 </div>
                                 <input type="range" id="brightness" min="50" max="150" value="100" onchange="updateImage()">
                             </div>
-                            <div class="image-container">
+                            <div class="image-container" id="imageContainer">
                                 <div class="image-wrapper">
-                                    <img id="cxrImage" class="cxr-image" src="" alt="CXR" crossorigin="anonymous" onload="onImageLoad()" onerror="onImageError()">
+                                    <img id="cxrImage" class="cxr-image" src="" alt="CXR" style="display:none;">
+                                    <div id="imagePlaceholder" class="image-placeholder">
+                                        <p>📷 تصویر رادیوگرافی قفسه سینه</p>
+                                        <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.8;">در حال بارگذاری...</p>
+                                    </div>
                                     <canvas id="heatmapCanvas" class="heatmap-overlay"></canvas>
                                 </div>
                             </div>
@@ -292,7 +297,7 @@
                 hpi: 'بیمار 25 ساله، بدون علائم تنفسی، مراجعه برای چک‌آپ معمول',
                 vitals: [{label:'دما', value:'36.5°C'}, {label:'ضربان', value:'72'}, {label:'تنفس', value:'16'}, {label:'فشار', value:'120/80'}, {label:'اکسیژن', value:'98%'}],
                 pe: 'معاینه فیزیکی طبیعی، صداهای تنفسی واضح در تمام قسمت‌ها',
-                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Normal_posteroanterior_%28PA%29_chest_radiograph_%28X-ray%29.jpg/512px-Normal_posteroanterior_%28PA%29_chest_radiograph_%28X-ray%29.jpg',
+                image: 'https://raw.githubusercontent.com/ieee8023/covid-chestxray-dataset/master/images/1-s2.0-S0929664620300449-gr2_lrg-b.jpg',
                 insights: [{title: '✓ پارانشیم ریوی', detail: 'شفاف و بدون اینفیلتراسیون'}, {title: '✓ سایه قلبی', detail: 'CTR کمتر از 0.5 (طبیعی)'}, {title: '✓ دیافراگم', detail: 'خطوط واضح و در موقعیت طبیعی'}],
                 teaching: '✅ یافته‌های طبیعی CXR:\n• ریه‌ها شفاف بدون اینفیلتراسیون\n• قلب در اندازه و موقعیت طبیعی\n• دیافراگم مشخص و در جای خود\n• هیلوم‌ها در اندازه طبیعی'
             },
@@ -302,7 +307,7 @@
                 hpi: 'بیمار 40 ساله با تب 38.5 درجه، سرفه مولد و تنگی نفس از 3 روز پیش',
                 vitals: [{label:'دما', value:'38.5°C'}, {label:'ضربان', value:'105'}, {label:'تنفس', value:'24'}, {label:'فشار', value:'130/85'}, {label:'اکسیژن', value:'92%'}],
                 pe: 'کراکل در لوب تحتانی راست، تاکی‌پنه، کاهش صداهای تنفسی',
-                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Pneumonia_x_ray.jpg/512px-Pneumonia_x_ray.jpg',
+                image: 'https://raw.githubusercontent.com/ieee8023/covid-chestxray-dataset/master/images/streptococcus-pneumoniae-pneumonia-1.jpg',
                 insights: [{title: '⚠ کانسولیداسیون', detail: 'اوپاسیته متمرکز در لوب تحتانی'}, {title: '⚠ Air Bronchogram', detail: 'مشاهده برونشیول‌های هوایی در زمینه متراکم'}, {title: '⚠ علائم کلینیکی', detail: 'تب + کراکل + لکوسیتوز'}],
                 teaching: '⚠ پنومونی باکتریال:\n• کانسولیداسیون لوبار\n• Air bronchogram مثبت\n• همراهی با تب و لکوسیتوز\n• درمان با آنتی‌بیوتیک گسترده'
             },
@@ -312,7 +317,7 @@
                 hpi: 'بیمار 28 ساله با شروع ناگهانی درد قفسه سینه و تنگی نفس',
                 vitals: [{label:'دما', value:'37.2°C'}, {label:'ضربان', value:'110'}, {label:'تنفس', value:'26'}, {label:'فشار', value:'128/82'}, {label:'اکسیژن', value:'94%'}],
                 pe: 'کاهش شدید صداهای تنفسی در نیمه راست، تاکی‌پنه، تاکی‌کاردی',
-                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Pneumothorax_CXR.jpg/512px-Pneumothorax_CXR.jpg',
+                image: 'https://prod-images-static.radiopaedia.org/images/1146313/a2c1c1a5e5a8f4e3e3dce3b3f3c4c5_big_gallery.jpeg',
                 insights: [{title: '🔴 خط پلورال', detail: 'مشاهده خط واضح ویسرال پلورا'}, {title: '🔴 فروپاشی ریه', detail: 'ریه کولپس شده به سمت هیلوم'}, {title: '🔴 عدم مارکینگ', detail: 'فضای بدون مارکینگ عروقی'}],
                 teaching: '🔴 پنوموتوراکس:\n• خط ویسرال پلورا مشخص\n• فروپاشی ریه به سمت هیلوم\n• عدم وجود مارکینگ عروقی در فضای پنوموتوراکس\n• نیاز به چست تیوب در موارد شدید'
             },
@@ -322,7 +327,7 @@
                 hpi: 'بیمار 55 ساله با سابقه نارسایی احتقانی قلب، تنگی نفس افزایش یافته',
                 vitals: [{label:'دما', value:'37.0°C'}, {label:'ضربان', value:'98'}, {label:'تنفس', value:'22'}, {label:'فشار', value:'140/90'}, {label:'اکسیژن', value:'93%'}],
                 pe: 'کاهش شنوایی در قاعده ریه چپ، برانش منیسکوس',
-                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Pleural_effusion.jpg/512px-Pleural_effusion.jpg',
+                image: 'https://prod-images-static.radiopaedia.org/images/52642/4ef39ab9e9c0d17e7e8e2e3f4c4c4c4c_big_gallery.jpeg',
                 insights: [{title: '⚠ Blunting کوستوفرنیک', detail: 'محو شدن زاویه کوستوفرنیک'}, {title: '⚠ علامت منیسکوس', detail: 'سایه مایع با خط منحنی مشخص'}, {title: '⚠ مایع پلورال', detail: 'جمع شدن مایع در فضای پلورال'}],
                 teaching: '⚠ افیوژن پلورال:\n• Blunting زاویه کوستوفرنیک\n• علامت منیسکوس\n• معیارهای Light برای تشخیص اگزودا/ترانسودا\n• ضرورت تاراسنتز در موارد بزرگ'
             },
@@ -332,7 +337,7 @@
                 hpi: 'بیمار 60 ساله با سابقه فشار خون کنترل نشده، خستگی و تنگی نفس',
                 vitals: [{label:'دما', value:'37.1°C'}, {label:'ضربان', value:'92'}, {label:'تنفس', value:'20'}, {label:'فشار', value:'155/95'}, {label:'اکسیژن', value:'95%'}],
                 pe: 'سوفل سیستولیک، نبض محیطی ضعیف، ادم پا دوطرفه',
-                image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Cardiomegally.PNG/512px-Cardiomegally.PNG',
+                image: 'https://prod-images-static.radiopaedia.org/images/1303693/c3b6e7e9e8e3e9e3e9e3e9e3e9e3e9_big_gallery.jpeg',
                 insights: [{title: '🔴 نسبت CTR', detail: 'CTR بیشتر از 0.5 (افزایش یافته)'}, {title: '🔴 بزرگی قلب', detail: 'افزایش اندازه سایه قلبی'}, {title: '🔴 تغییر سیلوئت', detail: 'تغییر شکل و اندازه قلب'}],
                 teaching: '🔴 کاردیومگالی:\n• CTR بیشتر از 0.5\n• افزایش اندازه سایه قلبی\n• احتمال کاردیومیوپاتی دیلاته\n• نیاز به اکوکاردیوگرافی برای ارزیابی دقیق'
             }
@@ -359,15 +364,6 @@
 
         function handleLogout() { if (confirm('از خروج اطمینان دارید؟')) location.reload(); }
 
-        function onImageLoad() {
-            console.log('Image loaded successfully');
-        }
-
-        function onImageError() {
-            console.error('Failed to load image');
-            alert('خطا در بارگذاری تصویر. لطفا مجددا تلاش کنید.');
-        }
-
         function loadCase() {
             if (caseIndex >= maxCases) { showSummary(); return; }
             const caseId = caseOrder[caseIndex], data = clinicalData[caseId], opts = optionsPerCase[caseId];
@@ -379,8 +375,28 @@
             document.getElementById('pe').textContent = data.pe;
             document.getElementById('vitals').innerHTML = data.vitals.map(v => `<div class="vital"><div class="vital-value">${v.value}</div><div class="vital-label">${v.label}</div></div>`).join('');
             document.getElementById('optionsContainer').innerHTML = opts.options.map(opt => `<div class="option-item" onclick="selectOption('${opt.id}', event)"><input type="radio" name="diagnosis" value="${opt.id}"><label class="option-label">${opt.label}</label></div>`).join('');
+            
+            // Load image
             const img = document.getElementById('cxrImage');
-            img.src = data.image; img.style.transform = 'scale(1)'; zoomLevel = 1;
+            const placeholder = document.getElementById('imagePlaceholder');
+            
+            img.onload = function() {
+                img.style.display = 'block';
+                placeholder.style.display = 'none';
+            };
+            
+            img.onerror = function() {
+                placeholder.innerHTML = '<p>⚠️ خطا در بارگذاری تصویر</p><p style="font-size: 0.85rem; margin-top: 0.5rem;">لطفا صفحه را رفرش کنید</p>';
+            };
+            
+            img.src = data.image;
+            img.style.transform = 'scale(1)';
+            zoomLevel = 1;
+            placeholder.style.display = 'flex';
+            placeholder.style.flexDirection = 'column';
+            placeholder.style.alignItems = 'center';
+            placeholder.style.justifyContent = 'center';
+            
             document.getElementById('brightness').value = 100;
             updateImage();
             document.getElementById('answerText').value = '';
@@ -427,7 +443,7 @@
         function toggleHeatmap() {
             showingHeatmap = !showingHeatmap;
             const canvas = document.getElementById('heatmapCanvas'), img = document.getElementById('cxrImage'), opacityControl = document.getElementById('opacityControl');
-            if (showingHeatmap) {
+            if (showingHeatmap && img.complete && img.naturalHeight !== 0) {
                 opacityControl.style.display = 'block';
                 canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
                 const ctx = canvas.getContext('2d'), grad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, Math.max(canvas.width, canvas.height)/2);
